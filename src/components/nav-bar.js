@@ -4,24 +4,6 @@ import axios from 'axios'
 
 const Nav = (props) => {
 
-   const handleLogin = () => {
-      axios
-         .post('https://protected-eyrie-39175.herokuapp.com/session', {
-            user:{
-               username: 'lorens',
-               password: '123456',
-            }
-         },
-         {withCredentials:true})
-         .then((response) => {
-            console.log(response.data);
-            props.setCurrentUser(response.data)
-            localStorage.setItem('currentUser', JSON.stringify(response.data))
-            props.setBooks(response.data.books)
-            props.setPlayerList(response.data.players)
-         })
-   }
-
    const handleLogout = () => {
       localStorage.removeItem('currentUser')
       props.setCurrentUser(null)
@@ -41,7 +23,7 @@ const Nav = (props) => {
             :
             (<>
                <li><button onClick={props.checkSession}>Sign up</button></li>
-               <li><button onClick={handleLogin}>Log in</button></li>
+               <li><button >Log in</button></li>
             </>)
          }
       </ul>

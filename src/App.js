@@ -5,6 +5,7 @@ import MyBook from './components/book.js'
 import Players from './components/player-list.js'
 import AddBet from './components/add-bet.js'
 import Nav from './components/nav-bar.js'
+import Login from './components/login.js'
 
 const App = () => {
    const [currentUser, setCurrentUser ] = useState(null)
@@ -37,6 +38,7 @@ const App = () => {
    return(
       <main>
          <header>
+         { currentUser ?
             <Nav
                currentUser={currentUser}
                setBooks={setBooks}
@@ -44,6 +46,8 @@ const App = () => {
                setCurrentUser={setCurrentUser}
                setCurrentBook={setCurrentBook}
                checkSession={checkSession}/>
+            : null
+         }
          </header>
          <content>
          { currentUser ?
@@ -71,7 +75,10 @@ const App = () => {
                targetBet={targetBet}
                setTargetBet={setTargetBet}/>
             </>
-                  : <p>You should log in</p>
+                  : <Login
+                     setCurrentUser={setCurrentUser}
+                     setBooks={setBooks}
+                     setPlayerList={setPlayerList}/>
             }
          </content>
       </main>
