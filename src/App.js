@@ -1,12 +1,18 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import EditBet from './components/edit-bet.js'
 
 const App = () => {
 
    const [currentUser, setCurrentUser ] = useState(null)
    const [books, setBooks] = useState([])
    const [currentBook, setCurrentBook] = useState(null)
-   const [player, setPlayer]= useState(null)
+   const [playerList, setPlayerList] = useState([])
+   const [targetBet, setTargetBet] = useState(null)
+
+
+   const emptyPlayer = {name:'', contact:'', balance:0}
+   const [player, setPlayer]= useState(emptyPlayer)
 
    const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
    const [bet, setNewBet ] = useState(emptyBet)
@@ -25,6 +31,7 @@ const App = () => {
             setCurrentUser(response.data)
             localStorage.setItem('currentUser', JSON.stringify(response.data))
             setBooks(response.data.books)
+            setPlayerList(response.data.players)
          })
    }
 
@@ -35,6 +42,7 @@ const App = () => {
       localStorage.removeItem('currentBook')
       setCurrentBook(null)
       setBooks([])
+      setPlayerList([])
    }
 
    const handleBookBtn = (event) => {
@@ -55,6 +63,10 @@ const App = () => {
       setNewBet({...bet, user_id:currentUser.id, book_id:currentBook.id, [event.target.name]:event.target.value })
    }
 
+   const handlePlayerInput = (event) => {
+      setPlayer({...player, user_id:currentUser.id, [event.target.name]:event.target.value})
+   }
+
    const handleBetSubmit = (event) => {
       event.preventDefault()
       axios
@@ -68,6 +80,18 @@ const App = () => {
                setCurrentBook(response.data)
             }
          })
+   }
+
+   const handlePlayerSubmit = (event) => {
+      event.preventDefault()
+      axios.post("https://protected-eyrie-39175.herokuapp.com/players", {player})
+      .then((response, error) => {
+         if(error){
+            console.log(error);
+         } else {
+            console.log(response.data);
+         }
+      })
    }
 
 
@@ -92,6 +116,18 @@ const App = () => {
          })
    }
 
+   const findBet = (id) => {
+      axios
+         .get("https://protected-eyrie-39175.herokuapp.com/bets/"+id)
+         .then((response, error) => {
+            if(error){
+               console.log(error);
+            } else {
+               console.log(response.data);
+               setTargetBet(response.data)
+            }
+         })
+   }
 
    const checkSession = () => {
       let userRaw = localStorage.getItem('currentUser')
@@ -116,20 +152,17 @@ const App = () => {
       <main>
          <header>
          <ul className="nav">
-            <li><a href="https://protected-eyrie-39175.herokuapp.com/session/new">Login</a></li>
-            <li><a href="https://protected-eyrie-39175.herokuapp.com/users/new">Sign-up</a></li>
-
-            <li><button onClick={checkSession}>check session</button></li>
-
             { currentUser ? (
                <><li><button onClick={handleLogout}>Logout</button></li>
                   <li>Welcome, {currentUser.username}</li>
                </>)
                :
-               (<button onClick={handleLogin}>new login</button>)
+               (<>
+                  <li><button onClick={checkSession}>Sign up</button></li>
+                  <li><button onClick={handleLogin}>Log in</button></li>
+               </>)
             }
          </ul>
-
          </header>
          <nav>
             {books.map((book) => {
@@ -157,6 +190,7 @@ const App = () => {
                            <td>{ bet.juice}</td>
                            <td><a href="#">{bet.id}</a></td>
                            <td><button id={bet.id} onClick={handleDelete}>-</button></td>
+                           <td><button id={bet.id} onClick={e=>findBet(e.target.id)}>...</button></td>
                         </tr>
                      )
                   })) : null
@@ -172,8 +206,8 @@ const App = () => {
                <th>Balance</th>
                <th>ID</th>
             </tr>
-            { currentUser ?
-               (currentUser.players.map((player) => {
+            { playerList ?
+               (playerList.map((player) => {
                   return(
                      <tr key={player.id}>
                         <td><a href="#">{player.name}</a></td>
@@ -183,12 +217,22 @@ const App = () => {
                         <td><a href="#">{player.id}</a></td>
                      </tr>
                   )
-               })) : null
+               })): null
             }
             </table>
+            { currentUser ?
+               <><h4>Add Player</h4>
+               <form onSubmit={handlePlayerSubmit}>
+                  <input type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
+                  <input type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
+                  <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
+                  <input type='submit'/>
+               </form></>
+                  : null
+            }
 
             { currentUser ?
-               (<form onSubmit={handleBetSubmit}>
+               (<><form onSubmit={handleBetSubmit}>
                <h4>Add new bet</h4>
                <label for="player_id">Player:</label>
                <select name="player_id_id" id="player_id">
@@ -212,8 +256,16 @@ const App = () => {
                   }/>
                <input type="hidden" name={currentUser.id} value={currentUser.id}/>
                <input type="submit"/>
-               </form>)
-                  : (null)
+               </form>
+               <EditBet
+                  currentUser={currentUser}
+                  player={player}
+                  currentBook={currentBook}
+                  setCurrentBook={setCurrentBook}
+                  targetBet={targetBet}
+                  setTargetBet={setTargetBet}/>
+               </>)
+                  : null
             }
          </content>
       </main>
