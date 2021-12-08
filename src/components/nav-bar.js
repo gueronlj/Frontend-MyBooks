@@ -26,8 +26,13 @@ const Nav = (props) => {
       <ul className="nav">
          { props.currentUser ? (
             <>
-            <li>Welcome, {props.currentUser.username}</li>
-            <li><button onClick={togglePlayers}>Players</button></li>
+            <li id="welcome" >Welcome, {props.currentUser.username}</li>
+
+            {props.playersOn ?
+               <li id='playersToggle' ><p>close</p><img src="cross.svg" onClick={togglePlayers}/></li>
+               :
+               <li><button onClick={togglePlayers}>Players</button></li>
+            }
             <li><button>Help</button></li>
             <li><button onClick={handleLogout}>Logout</button></li>
             </>)

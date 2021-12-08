@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 const AddBet = (props) => {
-   const localURL= "http://localhost:3000/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
    const [bet, setNewBet ] = useState(emptyBet)

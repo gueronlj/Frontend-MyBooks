@@ -2,10 +2,11 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import PlayerDetails from './player-details.js'
+import AddBook from './add-book.js'
 
 
 const MyBook = (props) => {
-   const localURL= "http://localhost:3000/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [openDetails, setOpenDetails] = useState(false)
 
@@ -126,9 +127,21 @@ const MyBook = (props) => {
                <button onClick={handleBookBtn} key={book.id} id={book.id}>{book.name}</button>
             )
          })}
-         <img src="./file-add.svg" onClick={toggleAddBook}/>
+         { props.addBook ?
+            <img src="./cross.svg" onClick={toggleAddBook}/> : <img src="./file-add.svg" onClick={toggleAddBook}/>
+         }
+
          <img src="./trash.svg" onClick={deleteBook}/>
       </nav>
+      { props.addBook ?
+         <AddBook
+            currentUser={props.currentUser}
+            setCurrentBook={props.setCurrentBook}
+            setBooks={props.setBooks}
+            setAddBook={props.setAddBook}/>
+            : null
+      }
+
       { props.currentBook ?
          (<>
          <table>
@@ -141,7 +154,7 @@ const MyBook = (props) => {
             {(props.currentBook.bets.map((bet) => {
                return(
                   <tr key={bet.id}>
-                     <td ><a id={bet.player_id} onClick={toggleDetails}>{bet.player_id}</a></td>
+                     <td><a href="#" id={bet.player.id} onClick={toggleDetails}>{bet.player.name}</a></td>
                      <td>{ bet.prop}</td>
                      <td>${ bet.value}</td>
                      <td>{ bet.juice}</td>

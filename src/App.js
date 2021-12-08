@@ -9,8 +9,6 @@ import Login from './components/login.js'
 import AddBook from './components/add-book.js'
 
 const App = () => {
-   const localURL= "http://localhost:3000/"
-   const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
 
    const [currentUser, setCurrentUser ] = useState(null)
    const [books, setBooks] = useState([])
@@ -24,7 +22,7 @@ const App = () => {
    const [editMode, setEditMode] = useState(false)
    const [addBook, setAddBook] = useState(false)
    const [openDetails, setOpenDetails] = useState(false)
-   
+
 
    const checkSession = () => {
       let userRaw = localStorage.getItem('currentUser')
@@ -73,14 +71,6 @@ const App = () => {
          }
          { currentUser ?
             <>
-            { addBook ?
-               <AddBook
-                  currentUser={currentUser}
-                  setCurrentBook={setCurrentBook}
-                  setBooks={setBooks}/>
-                  : null
-            }
-
             <MyBook
                books={books}
                setBooks={setBooks}

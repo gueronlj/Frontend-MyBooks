@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const Players = (props) => {
 
-   const localURL= "http://localhost:3000/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [addingPlayer, setAddingPlayer] = useState(false)
 
@@ -67,7 +67,13 @@ const Players = (props) => {
    return(
       <>
       <div id="playerHead">
-         <img src="user-add.svg" onClick={toggleAddPLayer}/>
+
+         { addingPlayer ?
+            <><p>Close</p><img src="cross.svg" onClick={toggleAddPLayer}/></>
+            :
+            <><p>Add player</p><img src="user-add.svg" onClick={toggleAddPLayer}/></>
+         }
+
       </div>
       { addingPlayer ?
          <>
@@ -76,7 +82,6 @@ const Players = (props) => {
             <input type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
             <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
             <input type='submit'/>
-            <img src='cross.svg' onClick={()=>setAddingPlayer(false)}/>
          </form>
 
          </>

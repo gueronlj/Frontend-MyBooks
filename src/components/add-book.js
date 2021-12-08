@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 const AddBook = (props) => {
-   const localURL= "http://localhost:3000/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [newBook, setNewBook] = useState({})
 
@@ -22,6 +22,7 @@ const AddBook = (props) => {
                console.log(response.data);
                props.setCurrentBook(response.data)
                updateList()
+               props.setAddBook(false)
             }
          })
    }
