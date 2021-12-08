@@ -115,7 +115,8 @@ const App = () => {
                   : <Login
                      setCurrentUser={setCurrentUser}
                      setBooks={setBooks}
-                     setPlayerList={setPlayerList}/>
+                     setPlayerList={setPlayerList}
+                     setCurrentBook={setCurrentBook}/>
             }
          </section>
       </main>
