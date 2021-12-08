@@ -66,9 +66,10 @@ const MyBook = (props) => {
             } else {
                console.log(response.data);
                props.setTargetBet(response.data)
-               props.setEditMode(true)
             }
          })
+         props.editMode ?
+            props.setEditMode(false) : props.setEditMode(true)
    }
 
    const toggleAddBet= () => {
@@ -80,7 +81,7 @@ const MyBook = (props) => {
    }
 
    const toggleDetails = () => {
-      setOpenDetails(true)
+      props.setOpenDetails(true)
    }
 
    const toggleAddBook = () => {
@@ -124,7 +125,7 @@ const MyBook = (props) => {
             {(props.currentBook.bets.map((bet) => {
                return(
                   <tr key={bet.id}>
-                     <td ><button onClick={toggleDetails}>{bet.player_id}</button></td>
+                     <td ><a onClick={toggleDetails}>{bet.player_id}</a></td>
                      <td>{ bet.prop}</td>
                      <td>${ bet.value}</td>
                      <td>{ bet.juice}</td>
@@ -142,9 +143,9 @@ const MyBook = (props) => {
          </>) : null
       }
 
-      {openDetails ?
+      {props.openDetails ?
          <PlayerDetails
-            setOpenDetails={setOpenDetails}/> : null
+            setOpenDetails={props.setOpenDetails}/> : null
       }
    </>)
 }

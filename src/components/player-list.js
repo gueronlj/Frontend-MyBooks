@@ -56,6 +56,10 @@ const Players = (props) => {
          setAddingPlayer(false) : setAddingPlayer(true)
    }
 
+   const toggleDetails = () => {
+      props.setOpenDetails(true)
+   }
+
    useEffect(() => {
       updateList()
    },[])
@@ -88,10 +92,10 @@ const Players = (props) => {
             (props.playerList.map((player) => {
                return(
                   <tr key={player.id}>
-                     <td><a href="#">{player.name}</a></td>
-                     <td>{ player.contact}</td>
-                     <td>{ player.wins}</td>
-                     <td>${ player.balance}</td>
+                     <td><a onClick={toggleDetails}>{player.name}</a></td>
+                     <td onClick={toggleDetails}>{ player.contact}</td>
+                     <td onClick={toggleDetails}>{ player.wins}</td>
+                     <td onClick={toggleDetails}>${ player.balance}</td>
                      <td><a href="#">{player.id}</a></td>
                      <td><button id={player.id} onClick={handleDelete}>-</button></td>
                   </tr>

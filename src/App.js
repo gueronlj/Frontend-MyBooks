@@ -21,6 +21,7 @@ const App = () => {
    const [addBetOn, setAddBetOn] = useState(false)
    const [editMode, setEditMode] = useState(false)
    const [addBook, setAddBook] = useState(false)
+   const [openDetails, setOpenDetails] = useState(false)
 
    const checkSession = () => {
       let userRaw = localStorage.getItem('currentUser')
@@ -56,14 +57,15 @@ const App = () => {
             : null
          }
          </header>
-         <content>
+         <section>
          {playersOn ?
             (<Players
                player={player}
                setPlayer={setPlayer}
                playerList={playerList}
                setPlayerList={setPlayerList}
-               currentUser={currentUser}/>)
+               currentUser={currentUser}
+               setOpenDetails={setOpenDetails}/>)
             : null
          }
          { currentUser ?
@@ -87,7 +89,9 @@ const App = () => {
                setAddBetOn={setAddBetOn}
                setEditMode={setEditMode}
                addBook={addBook}
-               setAddBook={setAddBook}/>
+               setAddBook={setAddBook}
+               openDetails={openDetails}
+               setOpenDetails={setOpenDetails}/>
 
             {addBetOn ?
                <AddBet
@@ -97,24 +101,29 @@ const App = () => {
                   playerList={playerList}/>
                   : null
             }
-            <EditBet
-               currentUser={currentUser}
-               player={player}
-               currentBook={currentBook}
-               setCurrentBook={setCurrentBook}
-               targetBet={targetBet}
-               setTargetBet={setTargetBet}
-               setEditMode={setEditMode}
-               editMode={editMode}
-               setPlayerList={setPlayerList}
-               playerList={playerList}/>
+            {editMode ?
+               <EditBet
+                  currentUser={currentUser}
+                  player={player}
+                  currentBook={currentBook}
+                  setCurrentBook={setCurrentBook}
+                  targetBet={targetBet}
+                  setTargetBet={setTargetBet}
+                  setEditMode={setEditMode}
+                  editMode={editMode}
+                  setPlayerList={setPlayerList}
+                  playerList={playerList}/>
+
+                  : null
+            }
+
             </>
                   : <Login
                      setCurrentUser={setCurrentUser}
                      setBooks={setBooks}
                      setPlayerList={setPlayerList}/>
             }
-         </content>
+         </section>
       </main>
    )
 }
