@@ -27,3 +27,25 @@ header {
    display: inline;
    margin: 0em .5em;
 }
+
+.modalBack{
+   background-color: rgba(0,0,0,0.6);
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   z-index: 1;
+   overflow: auto;
+}
+
+.detailsModal{
+   display: flex;
+   position: relative;
+   transform: translateY(200px);
+   flex-direction: column;
+   background-color: white;
+   border-radius: 3px;
+   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+}

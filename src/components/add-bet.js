@@ -31,9 +31,9 @@ const AddBet = (props) => {
       <form onSubmit={handleBetSubmit}>
       <h4>Add new bet</h4>
       <label for="player_id">Player:</label>
-      <select name="player_id" id="player_id">
+      <select name="player_id" id="player_id" onChange={handleInput}>
          {
-            props.currentUser.players.map((player) => {
+            props.playerList.map((player) => {
                return(
                   <option key={player.id} value={player.id}>{player.name}</option>
                )

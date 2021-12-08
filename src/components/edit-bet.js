@@ -8,9 +8,26 @@ const EditBet = (props) => {
    const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
    const [bet, setBet] = useState(emptyBet)
 
+   const closeModal = () => {
+      props.setEditMode(false)
+   }
+
    const handleInput = (event) => {
       props.setTargetBet({...props.targetBet, [event.target.name]:event.target.value})
       setBet({...bet, [event.target.name]:event.target.value})
+   }
+
+   const refreshPlayers = () => {
+      axios
+         .get(localURL+"players/"+props.currentUser.id)
+         .then((response, error) => {
+            if(error){
+               console.log(error);
+            } else{
+               console.log(response.data);
+               props.setPlayerList(response.data)
+            }
+         })
    }
 
    const handleSubmit = (event) => {
@@ -37,13 +54,17 @@ const EditBet = (props) => {
       })
    }
 
+   useEffect(() => {
+      refreshPlayers()
+   },[])
+
    return(
-      <>{ props.targetBet != null ?
+      <>{ props.editMode ?
       <><h4>Edit Bet</h4>
       <form onSubmit={handleSubmit}>
          <label for="player_id">Player:</label>
          <select name="player_id" id="player_id" onChange={handleInput} value={props.targetBet.player_id}>
-            {props.currentUser.players.map((player) => {
+            {props.playerList.map((player) => {
                   return(
                      <option key={player.id} value={player.id}>{player.name}</option>
                   )
@@ -61,6 +82,7 @@ const EditBet = (props) => {
             }/>
          <input type="submit"/>
       </form>
+      <button onClick={closeModal}>Back</button>
       </> : null}
    </>)
 }

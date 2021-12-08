@@ -19,6 +19,7 @@ const App = () => {
    const [player, setPlayer]= useState(emptyPlayer)
    const [playersOn, setPlayersOn] = useState(false)
    const [addBetOn, setAddBetOn] = useState(false)
+   const [editMode, setEditMode] = useState(false)
 
    const checkSession = () => {
       let userRaw = localStorage.getItem('currentUser')
@@ -56,6 +57,15 @@ const App = () => {
          }
          </header>
          <content>
+         {playersOn ?
+            (<Players
+               player={player}
+               setPlayer={setPlayer}
+               playerList={playerList}
+               setPlayerList={setPlayerList}
+               currentUser={currentUser}/>)
+            : null
+         }
          { currentUser ?
             <>
             <AddBook
@@ -68,21 +78,15 @@ const App = () => {
                setCurrentBook={setCurrentBook}
                setTargetBet={setTargetBet}
                addBetOn={addBetOn}
-               setAddBetOn={setAddBetOn}/>
-            {playersOn ?
-               (<Players
-                  player={player}
-                  setPlayer={setPlayer}
-                  playerList={playerList}
-                  setPlayerList={setPlayerList}
-                  currentUser={currentUser}/>)
-               : null
-            }
+               setAddBetOn={setAddBetOn}
+               setEditMode={setEditMode}/>
+
             {addBetOn ?
                <AddBet
                   currentUser={currentUser}
                   currentBook={currentBook}
-                  setCurrentBook={setCurrentBook}/>
+                  setCurrentBook={setCurrentBook}
+                  playerList={playerList}/>
                   : null
             }
             <EditBet
@@ -91,7 +95,11 @@ const App = () => {
                currentBook={currentBook}
                setCurrentBook={setCurrentBook}
                targetBet={targetBet}
-               setTargetBet={setTargetBet}/>
+               setTargetBet={setTargetBet}
+               setEditMode={setEditMode}
+               editMode={editMode}
+               setPlayerList={setPlayerList}
+               playerList={playerList}/>
             </>
                   : <Login
                      setCurrentUser={setCurrentUser}

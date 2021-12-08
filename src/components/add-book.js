@@ -46,8 +46,7 @@ const AddBook = (props) => {
    return(
       <>
          <form onClick={handleSubmit}>
-            <h4>New Book</h4>
-            <label for="name"/>
+            <label for="name">Add a book </label>
             <input type="text" name="name" placeholder="Name for book" onChange={handleInput}/>
             <input type="submit"/>
          </form>
