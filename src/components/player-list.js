@@ -66,8 +66,10 @@ const Players = (props) => {
 
    return(
       <>
-      <h4>Player List</h4>
-      <button onClick={toggleAddPLayer}>New player</button>
+      <div id="playerHead">
+         <h4>Player List</h4>
+         <img src="user-add.svg" onClick={toggleAddPLayer}/>
+      </div>
       { addingPlayer ?
          <>
          <form onSubmit={handlePlayerSubmit}>
@@ -76,28 +78,28 @@ const Players = (props) => {
             <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
             <input type='submit'/>
          </form>
-         <button onClick={()=>setAddingPlayer(false)}>Back</button>
+         <img src='delete.svg' onClick={()=>setAddingPlayer(false)}/>
          </>
             : null
       }
-      <table>
+      <table className="playerTable">
          <tr>
+            <th>ID</th>
             <th>Alias</th>
             <th>Contact</th>
             <th>Total Wins</th>
             <th>Balance</th>
-            <th>ID</th>
          </tr>
          { props.playerList ?
             (props.playerList.map((player) => {
                return(
                   <tr key={player.id}>
+                     <td><a href="#">{player.id}</a></td>
                      <td><a onClick={toggleDetails}>{player.name}</a></td>
-                     <td onClick={toggleDetails}>{ player.contact}</td>
+                     <td id="contacts" onClick={toggleDetails}>{ player.contact}</td>
                      <td onClick={toggleDetails}>{ player.wins}</td>
                      <td onClick={toggleDetails}>${ player.balance}</td>
-                     <td><a href="#">{player.id}</a></td>
-                     <td><button id={player.id} onClick={handleDelete}>-</button></td>
+                     <td><img src='user-delete.svg' id={player.id} onClick={handleDelete}/></td>
                   </tr>
                )
             })): null

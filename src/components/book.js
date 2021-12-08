@@ -104,13 +104,14 @@ const MyBook = (props) => {
    },[])
 
    return(<>
-      <nav>
+      <nav id="bookNav">
          {props.books.map((book) => {
             return(
                <button onClick={handleBookBtn} key={book.id} id={book.id}>{book.name}</button>
             )
          })}
-         <button onClick={toggleAddBook}>New Book</button>
+         <img src="./file-add.svg" onClick={toggleAddBook}/>
+         <img src="./trash.svg" onClick={deleteBook}/>
       </nav>
       { props.currentBook ?
          (<>
@@ -137,8 +138,7 @@ const MyBook = (props) => {
             }))}
          </table>
          <nav>
-         <button onClick={toggleAddBet}>New bet</button>
-         <button onClick={deleteBook}>Delete this book</button>
+         <button  onClick={toggleAddBet}>New Bet</button>
          </nav>
          </>) : null
       }

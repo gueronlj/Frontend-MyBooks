@@ -15,7 +15,9 @@ code {
 main {
    display: flex;
    flex-direction: column;
-   width: 100vw
+   width: 94vw;
+   margin-left: 3%;
+   margin-right: 3%;
 }
 
 header {
@@ -25,7 +27,12 @@ header {
 
 .nav li{
    display: inline;
-   margin: 0em .5em;
+   margin: 0em .2em;
+}
+
+.nav{
+   margin: 1em;
+   padding-inline-start:0px;
 }
 
 .modalBack{
@@ -56,4 +63,31 @@ section{
 
 img{
    width: 20px;
+}
+
+.playerTable{
+   margin-bottom: 1em;
+}
+
+#contacts{
+   font-size: .9em;
+}
+
+#playerHead{
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+}
+
+#playerHead>*{
+   margin: .5em 1em;
+}
+
+#bookNav{
+   display: flex;
+   justify-content: flex-start;
+}
+
+#bookNav>*{
+   margin-right: .3em;
 }
