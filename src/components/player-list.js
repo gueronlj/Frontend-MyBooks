@@ -67,7 +67,6 @@ const Players = (props) => {
    return(
       <>
       <div id="playerHead">
-         <h4>Player List</h4>
          <img src="user-add.svg" onClick={toggleAddPLayer}/>
       </div>
       { addingPlayer ?
@@ -77,8 +76,9 @@ const Players = (props) => {
             <input type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
             <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
             <input type='submit'/>
+            <img src='cross.svg' onClick={()=>setAddingPlayer(false)}/>
          </form>
-         <img src='delete.svg' onClick={()=>setAddingPlayer(false)}/>
+
          </>
             : null
       }
@@ -94,7 +94,7 @@ const Players = (props) => {
             (props.playerList.map((player) => {
                return(
                   <tr key={player.id}>
-                     <td><a href="#">{player.id}</a></td>
+                     <td>{player.id}</td>
                      <td><a onClick={toggleDetails}>{player.name}</a></td>
                      <td id="contacts" onClick={toggleDetails}>{ player.contact}</td>
                      <td onClick={toggleDetails}>{ player.wins}</td>

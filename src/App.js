@@ -24,6 +24,7 @@ const App = () => {
    const [editMode, setEditMode] = useState(false)
    const [addBook, setAddBook] = useState(false)
    const [openDetails, setOpenDetails] = useState(false)
+   
 
    const checkSession = () => {
       let userRaw = localStorage.getItem('currentUser')

@@ -8,6 +8,9 @@ const MyBook = (props) => {
    const localURL= "http://localhost:3000/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [openDetails, setOpenDetails] = useState(false)
+
+   const [targetPlayer, setTargetPlayer] = useState({name:'', contact:'', wins:'', balance:''})
+
    const handleBookBtn = (event) => {
       axios
          .get(localURL+"mybook/"+event.target.id)
@@ -19,6 +22,18 @@ const MyBook = (props) => {
                props.setCurrentBook(response.data)
                localStorage.setItem('currentBook', JSON.stringify(response.data))
             }
+         })
+   }
+
+   const getPlayer = (id) => {
+      axios
+         .get(localURL+"player-details/"+id)
+         .then((response, error) => {
+            error ?
+               console.log(error)
+               :
+               console.log(response.data);
+               setTargetPlayer(response.data)
          })
    }
 
@@ -80,8 +95,9 @@ const MyBook = (props) => {
       }
    }
 
-   const toggleDetails = () => {
+   const toggleDetails = (event) => {
       props.setOpenDetails(true)
+      getPlayer(event.target.id)
    }
 
    const toggleAddBook = () => {
@@ -121,18 +137,16 @@ const MyBook = (props) => {
                <th></th>
                <th></th>
                <th>Juice</th>
-               <th>Id</th>
             </tr>
             {(props.currentBook.bets.map((bet) => {
                return(
                   <tr key={bet.id}>
-                     <td ><a onClick={toggleDetails}>{bet.player_id}</a></td>
+                     <td ><a id={bet.player_id} onClick={toggleDetails}>{bet.player_id}</a></td>
                      <td>{ bet.prop}</td>
                      <td>${ bet.value}</td>
                      <td>{ bet.juice}</td>
-                     <td><a href="#">{bet.id}</a></td>
                      <td><img src="./delete.svg" id={bet.id} onClick={handleDelete}/></td>
-                     <td><img src='./sliders.svg' alt="" id={bet.id} onClick={findBet}/></td>
+                     <td><img src='./pencil.svg' alt="" id={bet.id} onClick={findBet}/></td>
                   </tr>
                )
             }))}
@@ -145,7 +159,8 @@ const MyBook = (props) => {
 
       {props.openDetails ?
          <PlayerDetails
-            setOpenDetails={props.setOpenDetails}/> : null
+            setOpenDetails={props.setOpenDetails}
+            targetPlayer={targetPlayer}/> : null
       }
    </>)
 }
