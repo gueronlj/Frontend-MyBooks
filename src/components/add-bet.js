@@ -26,6 +26,23 @@ const AddBet = (props) => {
          })
    }
 
+   const updatePlayerList = () => {
+      axios
+         .get(localURL+"players/"+props.currentUser.id)
+         .then((response, error) => {
+            if(error){
+               console.log(error);
+            }else{
+               console.log(response.data);
+               props.setPlayerList(response.data)
+            }
+         })
+   }
+
+   useEffect(() => {
+      updatePlayerList()
+   },[])
+
    return(
       <>
       <form onSubmit={handleBetSubmit}>

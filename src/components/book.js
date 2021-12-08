@@ -130,8 +130,8 @@ const MyBook = (props) => {
                      <td>${ bet.value}</td>
                      <td>{ bet.juice}</td>
                      <td><a href="#">{bet.id}</a></td>
-                     <td><button id={bet.id} onClick={handleDelete}>-</button></td>
-                     <td><button id={bet.id} onClick={findBet}>...</button></td>
+                     <td><img src="./delete.svg" id={bet.id} onClick={handleDelete}/></td>
+                     <td><img src='./sliders.svg' alt="" id={bet.id} onClick={findBet}/></td>
                   </tr>
                )
             }))}

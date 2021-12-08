@@ -9,12 +9,14 @@ import Login from './components/login.js'
 import AddBook from './components/add-book.js'
 
 const App = () => {
+   const localURL= "http://localhost:3000/"
+   const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
 
    const [currentUser, setCurrentUser ] = useState(null)
    const [books, setBooks] = useState([])
    const [currentBook, setCurrentBook] = useState(null)
    const [playerList, setPlayerList] = useState([])
-   const [targetBet, setTargetBet] = useState(null)
+   const [targetBet, setTargetBet] = useState({id:1})
    const emptyPlayer = {name:'', contact:'', balance:0}
    const [player, setPlayer]= useState(emptyPlayer)
    const [playersOn, setPlayersOn] = useState(false)
@@ -38,7 +40,7 @@ const App = () => {
    }
 
    useEffect(() => {
-      checkSession();
+      checkSession()
    },[])
 
    return(
@@ -98,7 +100,8 @@ const App = () => {
                   currentUser={currentUser}
                   currentBook={currentBook}
                   setCurrentBook={setCurrentBook}
-                  playerList={playerList}/>
+                  playerList={playerList}
+                  setPlayerList={setPlayerList}/>
                   : null
             }
             {editMode ?
