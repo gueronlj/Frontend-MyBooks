@@ -1,6 +1,8 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Button from 'react-bootstrap/Button'
 
 const Nav = (props) => {
 
@@ -29,12 +31,12 @@ const Nav = (props) => {
             <li id="welcome" >Welcome, {props.currentUser.username}</li>
 
             {props.playersOn ?
-               <li id='playersToggle' ><p>close</p><img src="cross.svg" onClick={togglePlayers}/></li>
+               <li id='playersToggle' ><Button variant="outline-primary" onClick={togglePlayers}>close</Button><img src="cross.svg" onClick={togglePlayers}/></li>
                :
-               <li><button onClick={togglePlayers}>Players</button></li>
+               <li><Button variant="primary" onClick={togglePlayers}>Players</Button></li>
             }
-            <li><button>Help</button></li>
-            <li><button onClick={handleLogout}>Logout</button></li>
+            <li><Button variant="outline-info" >Help</Button></li>
+            <li><Button variant="outline-warning" onClick={handleLogout}>Logout</Button></li>
             </>)
             :
             (<>

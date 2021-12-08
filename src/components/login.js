@@ -1,6 +1,9 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
 const Login = (props) => {
    const localURL= "http://protected-eyrie-39175.herokuapp.com/"
@@ -51,14 +54,14 @@ const Login = (props) => {
             signUp ?
             <>
             <h3>Create an account</h3>
-            <form onSubmit={handleCreate}>
+            <Form onSubmit={handleCreate}>
                <label for="username"/>
-               <input type='text' name="username" onChange={handleInput}/>
-               <label for="password"/>
-               <input type='password' name="password" onChange={handleInput}/>
-               <input type="submit" value="Confirm"/>
-            </form>
-            <button onClick={toggleSignup}>Back</button>
+               <Form.Control type='text' name="username" placeholder="Username" onChange={handleInput}/>
+               <label for="Password"/>
+               <Form.Control type='password' name="password" placeholder="" onChange={handleInput}/>
+               <Button type="submit" variant="success">Confirm</Button>
+            </Form>
+            <Button variant="secondary" onClick={toggleSignup}>Back</Button>
             </>
             :
             <>
@@ -68,9 +71,9 @@ const Login = (props) => {
                <input type='text' name="username" onChange={handleInput}/>
                <label for="password"/>
                <input type='password' name="password" onChange={handleInput}/>
-               <input type="submit" value="Sign-in"/>
+               <Button type="submit" variant="success">Sign-in</Button>
             </form>
-            <button onClick={toggleSignup}>Create an account</button>
+            <Button variant="primary" onClick={toggleSignup}>Create an account</Button>
             </>
          }
       </>

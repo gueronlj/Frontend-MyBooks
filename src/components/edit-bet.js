@@ -1,6 +1,9 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
 const EditBet = (props) => {
    const localURL= "https://protected-eyrie-39175.herokuapp.com/"
@@ -59,32 +62,37 @@ const EditBet = (props) => {
    },[])
 
    return(
-      <>{ props.editMode ?
-      <><h4>Edit Bet</h4>
-      <form onSubmit={handleSubmit}>
-         <label for="player_id">Player:</label>
-         <select name="player_id" id="player_id" onChange={handleInput} value={props.targetBet.player_id}>
-            {props.playerList.map((player) => {
-                  return(
-                     <option key={player.id} value={player.id}>{player.name}</option>
-                  )
-               })}
-         </select><br/>
-         <label for="prop">Details:</label>
-            <input type="text" name="prop" onChange={handleInput} value={props.targetBet.prop}/><br/>
-         <label for="value">Amount: $</label>
-            <input type="number" name="value" onChange={handleInput} value={props.targetBet.value}/><br/>
-         <label for="juice">Juice:</label>
-            <input type="number" min="0" max="1" step="0.01" name="juice" onChange={handleInput} value={props.targetBet.juice}/>
-         <input type="hidden" name="book_id" value=
-            { props.currentBook ?
-               props.currentBook.id : 1
-            }/>
-         <input type="submit"/>
-      </form>
-      <button onClick={closeModal}>Back</button>
-      </> : null}
-   </>)
+      <div className = 'modalBack'>
+         <div className = 'detailsModal'>
+            { props.editMode ?
+            <><h4>Edit Bet</h4>
+            <Form onSubmit={handleSubmit}>
+               <label for="player_id">Player:</label>
+               <Form.Select name="player_id" id="player_id" onChange={handleInput} value={props.targetBet.player_id}>
+                  <option>Select a player</option>
+                  {props.playerList.map((player) => {
+                        return(
+                           <option key={player.id} value={player.id}>{player.name}</option>
+                        )
+                     })}
+               </Form.Select><br/>
+               <label for="prop">Details:</label>
+               <Form.Control type="text" name="prop" onChange={handleInput} value={props.targetBet.prop}/><br/>
+               <label for="value">Amount: $</label>
+               <Form.Control type="number" name="value" onChange={handleInput} value={props.targetBet.value}/><br/>
+               <label for="juice">Juice:</label>
+               <Form.Control type="number" min="0" max="1" step="0.01" name="juice" onChange={handleInput} value={props.targetBet.juice}/>
+               <input type="hidden" name="book_id" value=
+                  { props.currentBook ?
+                     props.currentBook.id : 1
+                  }/>
+               <Button type="submit">Submit</Button>
+            </Form>
+            <Button variant="secondary" onClick={closeModal}>Back</Button>
+            </> : null
+            }
+      </div>
+   </div>)
 }
 
 export default EditBet

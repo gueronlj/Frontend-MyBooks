@@ -1,14 +1,16 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Button from 'react-bootstrap/Button'
 
 const PlayerDetails = (props) => {
    const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
+   
    const closeModal = () => {
       props.setOpenDetails(false)
    }
-
 
    return (
       <div className = "modalBack">
@@ -17,7 +19,7 @@ const PlayerDetails = (props) => {
             <h5>Contact: {props.targetPlayer.contact}</h5>
             <h5>Total Wins: {props.targetPlayer.wins}</h5>
             <h5>Balance: ${props.targetPlayer.balance}</h5>
-            <button onClick={closeModal}>Back</button>
+            <Button variant="secondary" onClick={closeModal}>Back</Button>
          </div>
       </div>
    )

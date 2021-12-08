@@ -3,6 +3,10 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import PlayerDetails from './player-details.js'
 import AddBook from './add-book.js'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Button from 'react-bootstrap/Button'
+import Table from 'react-bootstrap/Table'
+import CloseButton from 'react-bootstrap/CloseButton'
 
 
 const MyBook = (props) => {
@@ -124,7 +128,7 @@ const MyBook = (props) => {
       <nav id="bookNav">
          {props.books.map((book) => {
             return(
-               <button onClick={handleBookBtn} key={book.id} id={book.id}>{book.name}</button>
+               <Button variant="info" size="sm" onClick={handleBookBtn} key={book.id} id={book.id}>{book.name}</Button>
             )
          })}
          { props.addBook ?
@@ -144,13 +148,16 @@ const MyBook = (props) => {
 
       { props.currentBook ?
          (<>
-         <table>
+         <Table striped hover>
+            <thead>
             <tr>
                <th>Player</th>
                <th></th>
                <th></th>
                <th>Juice</th>
             </tr>
+            </thead>
+            <tbody>
             {(props.currentBook.bets.map((bet) => {
                return(
                   <tr key={bet.id}>
@@ -158,14 +165,20 @@ const MyBook = (props) => {
                      <td>{ bet.prop}</td>
                      <td>${ bet.value}</td>
                      <td>{ bet.juice}</td>
-                     <td><img src="./delete.svg" id={bet.id} onClick={handleDelete}/></td>
+                     <td><CloseButton id={bet.id} onClick={handleDelete}/></td>
                      <td><img src='./pencil.svg' alt="" id={bet.id} onClick={findBet}/></td>
                   </tr>
                )
             }))}
-         </table>
+            </tbody>
+         </Table>
          <nav>
-         <button  onClick={toggleAddBet}>New Bet</button>
+         { props.addBetOn ?
+            <Button variant="outline-danger" onClick={toggleAddBet}>Cancel</Button>
+            :
+            <Button variant="success" onClick={toggleAddBet}>New Bet</Button>
+         }
+
          </nav>
          </>) : null
       }
