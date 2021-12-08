@@ -4,24 +4,6 @@ import axios from 'axios'
 
 const Nav = (props) => {
 
-   const handleLogin = () => {
-      axios
-         .post('https://protected-eyrie-39175.herokuapp.com/session', {
-            user:{
-               username: 'lorens',
-               password: '123456',
-            }
-         },
-         {withCredentials:true})
-         .then((response) => {
-            console.log(response.data);
-            props.setCurrentUser(response.data)
-            localStorage.setItem('currentUser', JSON.stringify(response.data))
-            props.setBooks(response.data.books)
-            props.setPlayerList(response.data.players)
-         })
-   }
-
    const handleLogout = () => {
       localStorage.removeItem('currentUser')
       props.setCurrentUser(null)
@@ -31,17 +13,33 @@ const Nav = (props) => {
       props.setPlayerList([])
    }
 
+   const togglePlayers = () => {
+      if(props.playersOn === false){
+         props.setPlayersOn(true)
+      }else{
+         props.setPlayersOn(false)
+      }
+   }
+
    return(
       <>
       <ul className="nav">
          { props.currentUser ? (
-            <><li><button onClick={handleLogout}>Logout</button></li>
-               <li>Welcome, {props.currentUser.username}</li>
+            <>
+            <li id="welcome" >Welcome, {props.currentUser.username}</li>
+
+            {props.playersOn ?
+               <li id='playersToggle' ><p>close</p><img src="cross.svg" onClick={togglePlayers}/></li>
+               :
+               <li><button onClick={togglePlayers}>Players</button></li>
+            }
+            <li><button>Help</button></li>
+            <li><button onClick={handleLogout}>Logout</button></li>
             </>)
             :
             (<>
                <li><button onClick={props.checkSession}>Sign up</button></li>
-               <li><button onClick={handleLogin}>Log in</button></li>
+               <li><button >Log in</button></li>
             </>)
          }
       </ul>

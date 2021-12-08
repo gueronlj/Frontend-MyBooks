@@ -3,6 +3,8 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 const AddBet = (props) => {
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
+   const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
    const [bet, setNewBet ] = useState(emptyBet)
    const handleInput = (event) => {
@@ -12,11 +14,11 @@ const AddBet = (props) => {
    const handleBetSubmit = (event) => {
       event.preventDefault()
       axios
-         .post("https://protected-eyrie-39175.herokuapp.com/bets", {bet})
+         .post(localURL+"bets", {bet})
          .then((response, error) => {
             if (error) {
                console.log(error);
-            } else{
+            } else {
                console.log(response.data);
                localStorage.setItem('currentBook', JSON.stringify(response.data))
                props.setCurrentBook(response.data)
@@ -24,14 +26,30 @@ const AddBet = (props) => {
          })
    }
 
+   const updatePlayerList = () => {
+      axios
+         .get(localURL+"players/"+props.currentUser.id)
+         .then((response, error) => {
+            if(error){
+               console.log(error);
+            }else{
+               console.log(response.data);
+               props.setPlayerList(response.data)
+            }
+         })
+   }
+
+   useEffect(() => {
+      updatePlayerList()
+   },[])
+
    return(
       <>
       <form onSubmit={handleBetSubmit}>
-      <h4>Add new bet</h4>
       <label for="player_id">Player:</label>
-      <select name="player_id_id" id="player_id">
+      <select name="player_id" id="player_id" onChange={handleInput}>
          {
-            props.currentUser.players.map((player) => {
+            props.playerList.map((player) => {
                return(
                   <option key={player.id} value={player.id}>{player.name}</option>
                )
