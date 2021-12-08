@@ -6,8 +6,10 @@ import Players from './components/player-list.js'
 import AddBet from './components/add-bet.js'
 import Nav from './components/nav-bar.js'
 import Login from './components/login.js'
+import AddBook from './components/add-book.js'
 
 const App = () => {
+
    const [currentUser, setCurrentUser ] = useState(null)
    const [books, setBooks] = useState([])
    const [currentBook, setCurrentBook] = useState(null)
@@ -15,6 +17,8 @@ const App = () => {
    const [targetBet, setTargetBet] = useState(null)
    const emptyPlayer = {name:'', contact:'', balance:0}
    const [player, setPlayer]= useState(emptyPlayer)
+   const [playersOn, setPlayersOn] = useState(false)
+   const [addBetOn, setAddBetOn] = useState(false)
 
    const checkSession = () => {
       let userRaw = localStorage.getItem('currentUser')
@@ -45,28 +49,42 @@ const App = () => {
                setPlayerList={setPlayerList}
                setCurrentUser={setCurrentUser}
                setCurrentBook={setCurrentBook}
-               checkSession={checkSession}/>
+               checkSession={checkSession}
+               setPlayersOn={setPlayersOn}
+               playersOn={playersOn}/>
             : null
          }
          </header>
          <content>
          { currentUser ?
             <>
-            <Players
-               player={player}
-               setPlayer={setPlayer}
-               playerList={playerList}
-               setPlayerList={setPlayerList}
-               currentUser={currentUser}/>
+            <AddBook
+               currentUser={currentUser}
+               setCurrentBook={setCurrentBook}
+               setBooks={setBooks}/>
             <MyBook
                books={books}
                currentBook={currentBook}
                setCurrentBook={setCurrentBook}
-               setTargetBet={setTargetBet}/>
-            <AddBet
-               currentUser={currentUser}
-               currentBook={currentBook}
-               setCurrentBook={setCurrentBook}/>
+               setTargetBet={setTargetBet}
+               addBetOn={addBetOn}
+               setAddBetOn={setAddBetOn}/>
+            {playersOn ?
+               (<Players
+                  player={player}
+                  setPlayer={setPlayer}
+                  playerList={playerList}
+                  setPlayerList={setPlayerList}
+                  currentUser={currentUser}/>)
+               : null
+            }
+            {addBetOn ?
+               <AddBet
+                  currentUser={currentUser}
+                  currentBook={currentBook}
+                  setCurrentBook={setCurrentBook}/>
+                  : null
+            }
             <EditBet
                currentUser={currentUser}
                player={player}

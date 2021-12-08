@@ -3,7 +3,8 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 const Login = (props) => {
-
+   const localURL= "http://localhost:3000/"
+   const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [login, setLogin] = useState({})
 
    const handleInput = (event) => {
@@ -13,7 +14,7 @@ const Login = (props) => {
    const handleSubmit = (event) => {
       event.preventDefault()
       axios
-         .post('https://protected-eyrie-39175.herokuapp.com/session', {user:login},
+         .post(localURL+'session', {user:login},
          {withCredentials:true})
          .then((response) => {
             console.log(response.data);

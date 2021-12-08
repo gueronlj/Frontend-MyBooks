@@ -13,7 +13,7 @@ const Players = (props) => {
 
    const handlePlayerSubmit = (event) => {
       event.preventDefault()
-      axios.post("https://protected-eyrie-39175.herokuapp.com/players", props.player)
+      axios.post(localURL+"players", props.player)
       .then((response, error) => {
          if(error){
             console.log(error);
@@ -24,29 +24,48 @@ const Players = (props) => {
       })
    }
 
+   const updateList = () => {
+      axios
+         .get(localURL+"players/"+props.currentUser.id)
+         .then((response, error) => {
+            if(error){
+               console.log(error);
+            }else{
+               console.log(response.data);
+               props.setPlayerList(response.data)
+            }
+         })
+   }
+
    const handleDelete = (event) => {
       axios
-         .delete("https://protected-eyrie-39175.herokuapp.com/players/"+event.target.id)
+         .delete(localURL+"players/"+event.target.id)
          .then((response, error) => {
             if (error){
                console.log(error);
             } else{
                console.log(response.data);
+               updateList()
             }
-            axios
-               .get("https://protected-eyrie-39175.herokuapp.com/players/"+props.currentUser.id)
-               .then((response, error) => {
-                  if(error){
-                     console.log(error);
-                  }else{
-                     props.setPlayerList(response.data)
-                  }
-               })
          })
    }
 
+   useEffect(() => {
+      updateList()
+   },[])
+
    return(
       <>
+      { props.currentUser ?
+         <><h4>Add Player</h4>
+         <form onSubmit={handlePlayerSubmit}>
+            <input type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
+            <input type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
+            <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
+            <input type='submit'/>
+         </form></>
+            : null
+      }
       <h4>Player List</h4>
       <table>
       <tr>
@@ -71,16 +90,6 @@ const Players = (props) => {
          })): null
       }
       </table>
-      { props.currentUser ?
-         <><h4>Add Player</h4>
-         <form onSubmit={handlePlayerSubmit}>
-            <input type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
-            <input type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
-            <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
-            <input type='submit'/>
-         </form></>
-            : null
-      }
       </>
    )
 }

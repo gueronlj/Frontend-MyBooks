@@ -3,7 +3,8 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 const EditBet = (props) => {
-
+   const localURL= "http://localhost:3000/"
+   const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
    const [bet, setBet] = useState(emptyBet)
 
@@ -16,7 +17,7 @@ const EditBet = (props) => {
       event.preventDefault()
       setBet(props.targetBet)
       axios
-      .patch("https://protected-eyrie-39175.herokuapp.com/bets/"+props.targetBet.id, {bet})
+      .patch(localURL+"bets/"+props.targetBet.id, {bet})
       .then((response, error) => {
          if (error){
             console.log(error);
@@ -24,7 +25,7 @@ const EditBet = (props) => {
             console.log(response.data);
          }
          axios
-            .get("https://protected-eyrie-39175.herokuapp.com/books/"+props.currentBook.id+'.json')
+            .get(localURL+"mybook/"+props.currentBook.id)
             .then((response, error) => {
                if(error){
                   console.log(error);

@@ -4,10 +4,11 @@ import axios from 'axios'
 
 
 const MyBook = (props) => {
-
+   const localURL= "http://localhost:3000/"
+   const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const handleBookBtn = (event) => {
       axios
-         .get("https://protected-eyrie-39175.herokuapp.com/books/"+event.target.id+".json")//Example: hitting the '2nd' button will querry for the '2nd' book
+         .get(localURL+"mybook/"+event.target.id)
          .then((response, error) => {
             if (error){
                console.log(error);
@@ -21,13 +22,13 @@ const MyBook = (props) => {
 
    const handleDelete = (event) => {
       axios
-         .delete("https://protected-eyrie-39175.herokuapp.com/bets/"+event.target.id)
+         .delete(localURL+"bets/"+event.target.id)
          .then((response, error) => {
             if (error){
                console.log(error);
             } else {
                axios
-                  .get("https://protected-eyrie-39175.herokuapp.com/books/"+props.currentBook.id+".json")
+                  .get(localURL+"books/"+props.currentBook.id+".json")
                   .then((response, error) => {
                      if (error){
                         console.log(error);
@@ -42,7 +43,7 @@ const MyBook = (props) => {
 
    const findBet = (id) => {
       axios
-         .get("https://protected-eyrie-39175.herokuapp.com/bets/"+id)
+         .get(localURL+"bets/"+id)
          .then((response, error) => {
             if(error){
                console.log(error);
@@ -53,6 +54,14 @@ const MyBook = (props) => {
          })
    }
 
+   const toggleAddBet= () => {
+      if(props.addBetOn=== false){
+         props.setAddBetOn(true)
+      }else{
+         props.setAddBetOn(false)
+      }
+   }
+
    return(<>
       <nav>
          {props.books.map((book) => {
@@ -61,19 +70,20 @@ const MyBook = (props) => {
             )
          })}
       </nav>
-      <table>
-         <tr>
-            <th>Player</th>
-            <th>Proposition</th>
-            <th>Ammount</th>
-            <th>Juice</th>
-            <th>Bet Id</th>
-         </tr>
-         { props.currentBook ?
-            (props.currentBook.bets.map((bet) => {
+      { props.currentBook ?
+         (<>
+         <table>
+            <tr>
+               <th>Player</th>
+               <th></th>
+               <th></th>
+               <th>Juice</th>
+               <th>Id</th>
+            </tr>
+            {(props.currentBook.bets.map((bet) => {
                return(
                   <tr key={bet.id}>
-                     <td ><a href="#">{bet.player.name}</a></td>
+                     <td ><a href="#">{bet.player_id}</a></td>
                      <td>{ bet.prop}</td>
                      <td>${ bet.value}</td>
                      <td>{ bet.juice}</td>
@@ -82,9 +92,11 @@ const MyBook = (props) => {
                      <td><button id={bet.id} onClick={e=>findBet(e.target.id)}>...</button></td>
                   </tr>
                )
-            })) : null
-         }
-      </table>
+            }))}
+         </table>
+         <button onClick={toggleAddBet}>New Bet</button>
+         </>) : null
+      }
    </>)
 }
 

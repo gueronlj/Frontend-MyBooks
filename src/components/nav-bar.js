@@ -13,12 +13,23 @@ const Nav = (props) => {
       props.setPlayerList([])
    }
 
+   const togglePlayers = () => {
+      if(props.playersOn === false){
+         props.setPlayersOn(true)
+      }else{
+         props.setPlayersOn(false)
+      }
+   }
+
    return(
       <>
       <ul className="nav">
          { props.currentUser ? (
-            <><li><button onClick={handleLogout}>Logout</button></li>
-               <li>Welcome, {props.currentUser.username}</li>
+            <>
+            <li>Welcome, {props.currentUser.username}</li>
+            <li><button onClick={togglePlayers}>Players</button></li>
+            <li><button>Help</button></li>
+            <li><button onClick={handleLogout}>Logout</button></li>
             </>)
             :
             (<>
