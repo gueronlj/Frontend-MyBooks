@@ -20,13 +20,13 @@ const App = () => {
    const [playersOn, setPlayersOn] = useState(false)
    const [addBetOn, setAddBetOn] = useState(false)
    const [editMode, setEditMode] = useState(false)
+   const [addBook, setAddBook] = useState(false)
 
    const checkSession = () => {
       let userRaw = localStorage.getItem('currentUser')
       if (userRaw != null){
          let userParsed = JSON.parse(userRaw)
          setCurrentUser(userParsed)
-         setBooks(userParsed.books)
 
          let bookRaw = localStorage.getItem('currentBook')
          if (bookRaw != null){
@@ -68,18 +68,26 @@ const App = () => {
          }
          { currentUser ?
             <>
-            <AddBook
-               currentUser={currentUser}
-               setCurrentBook={setCurrentBook}
-               setBooks={setBooks}/>
+            { addBook ?
+               <AddBook
+                  currentUser={currentUser}
+                  setCurrentBook={setCurrentBook}
+                  setBooks={setBooks}/>
+                  : null
+            }
+
             <MyBook
                books={books}
+               setBooks={setBooks}
                currentBook={currentBook}
+               currentUser={currentUser}
                setCurrentBook={setCurrentBook}
                setTargetBet={setTargetBet}
                addBetOn={addBetOn}
                setAddBetOn={setAddBetOn}
-               setEditMode={setEditMode}/>
+               setEditMode={setEditMode}
+               addBook={addBook}
+               setAddBook={setAddBook}/>
 
             {addBetOn ?
                <AddBet

@@ -6,6 +6,7 @@ const Players = (props) => {
 
    const localURL= "http://localhost:3000/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
+   const [addingPlayer, setAddingPlayer] = useState(false)
 
    const handlePlayerInput = (event) => {
       props.setPlayer({...props.player, user_id:props.currentUser.id, [event.target.name]:event.target.value})
@@ -50,25 +51,31 @@ const Players = (props) => {
          })
    }
 
+   const toggleAddPLayer = () => {
+      addingPlayer ?
+         setAddingPlayer(false) : setAddingPlayer(true)
+   }
+
    useEffect(() => {
       updateList()
    },[])
 
    return(
       <>
-      { props.currentUser ?
+      <h4>Player List</h4>
+      <button onClick={toggleAddPLayer}>New player</button>
+      { addingPlayer ?
          <>
-         <h4>Add Player</h4>
          <form onSubmit={handlePlayerSubmit}>
             <input type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
             <input type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
             <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
             <input type='submit'/>
          </form>
+         <button onClick={()=>setAddingPlayer(false)}>Back</button>
          </>
             : null
       }
-      <h4>Player List</h4>
       <table>
          <tr>
             <th>Alias</th>

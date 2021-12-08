@@ -7,8 +7,7 @@ import PlayerDetails from './player-details.js'
 const MyBook = (props) => {
    const localURL= "http://localhost:3000/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
-
-   const[openDetails, setOpenDetails] = useState(false)
+   const [openDetails, setOpenDetails] = useState(false)
    const handleBookBtn = (event) => {
       axios
          .get(localURL+"mybook/"+event.target.id)
@@ -19,6 +18,19 @@ const MyBook = (props) => {
                console.log(response.data);
                props.setCurrentBook(response.data)
                localStorage.setItem('currentBook', JSON.stringify(response.data))
+            }
+         })
+   }
+
+   const refreshBooks = () => {
+      axios
+         .get(localURL+"books/"+props.currentUser.id)
+         .then((response, error) => {
+            if(error){
+               console.log(error);
+            }else{
+               console.log(response.data);
+               props.setBooks(response.data)
             }
          })
    }
@@ -71,6 +83,25 @@ const MyBook = (props) => {
       setOpenDetails(true)
    }
 
+   const toggleAddBook = () => {
+      props.addBook ?
+         props.setAddBook(false) : props.setAddBook(true)
+   }
+
+   const deleteBook = () => {
+      axios
+         .delete(localURL+"books/"+props.currentBook.id)
+         .then((response, error) => {
+            error?
+               console.log(error) : console.log(response.data);
+               refreshBooks()
+         })
+   }
+
+   useEffect(() => {
+      refreshBooks()
+   },[])
+
    return(<>
       <nav>
          {props.books.map((book) => {
@@ -78,6 +109,7 @@ const MyBook = (props) => {
                <button onClick={handleBookBtn} key={book.id} id={book.id}>{book.name}</button>
             )
          })}
+         <button onClick={toggleAddBook}>New Book</button>
       </nav>
       { props.currentBook ?
          (<>
@@ -103,7 +135,10 @@ const MyBook = (props) => {
                )
             }))}
          </table>
+         <nav>
          <button onClick={toggleAddBet}>New bet</button>
+         <button onClick={deleteBook}>Delete this book</button>
+         </nav>
          </>) : null
       }
 
