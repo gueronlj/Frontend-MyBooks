@@ -64,10 +64,8 @@ const Login = (props) => {
             <>
             <h3>Create an account</h3>
             <Form onSubmit={handleCreate}>
-               <label for="username"/>
                <Form.Control type='text' name="username" placeholder="Username" onChange={handleInput}/>
-               <label for="Password"/>
-               <Form.Control type='password' name="password" placeholder="" onChange={handleInput}/>
+               <Form.Control type='password' name="password" placeholder="Password" onChange={handleInput}/>
                <Button type="submit" variant="success">Confirm</Button>
             </Form>
             <Button variant="secondary" onClick={toggleSignup}>Back</Button>
@@ -75,14 +73,12 @@ const Login = (props) => {
             :
                <>
                <h3>Log in</h3>
-               <form  onSubmit={handleSubmit}>
-                  <label for="username"/>
-                  <input type='text' name="username" onChange={handleInput}/>
-                  <label for="password"/>
-                  <input type='password' name="password" onChange={handleInput}/>
-                  <Button type="submit" variant="success">Sign-in</Button>
-               </form>
-               <Button variant="outline-primary" onClick={toggleSignup}>Create an account</Button>
+               <Form  onSubmit={handleSubmit}>
+                  <input type='text' name="username" placeholder="Username" onChange={handleInput}/>
+                  <input type='password' name="password" placeholder="Password" onChange={handleInput}/>
+                  <Button type="submit" variant="primary">Sign-in</Button>
+               </Form>
+               <Button variant="outline-warning" onClick={toggleSignup}>Create an account</Button>
                </>
          }<br/>
          <p>If you just want to explore, click below to login with a dummy account.</p>
