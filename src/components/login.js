@@ -24,6 +24,15 @@ const Login = (props) => {
       props.setCurrentBook(response.data.books[0])
    }
 
+   const handleDummyLogin = (event) => {
+      event.preventDefault()
+      axios
+         .post(localURL+'session', {user:{username:'lorens',password:'123456'}})
+         .then((response) => {
+            onLogin(response)
+         })
+   }
+
    const handleSubmit = (event) => {
       event.preventDefault()
       axios
@@ -49,7 +58,7 @@ const Login = (props) => {
    }
 
    return (
-      <>
+      <div id="login">
          {
             signUp ?
             <>
@@ -64,19 +73,21 @@ const Login = (props) => {
             <Button variant="secondary" onClick={toggleSignup}>Back</Button>
             </>
             :
-            <>
-            <h3>Log in</h3>
-            <form onSubmit={handleSubmit}>
-               <label for="username"/>
-               <input type='text' name="username" onChange={handleInput}/>
-               <label for="password"/>
-               <input type='password' name="password" onChange={handleInput}/>
-               <Button type="submit" variant="success">Sign-in</Button>
-            </form>
-            <Button variant="primary" onClick={toggleSignup}>Create an account</Button>
-            </>
-         }
-      </>
+               <>
+               <h3>Log in</h3>
+               <form  onSubmit={handleSubmit}>
+                  <label for="username"/>
+                  <input type='text' name="username" onChange={handleInput}/>
+                  <label for="password"/>
+                  <input type='password' name="password" onChange={handleInput}/>
+                  <Button type="submit" variant="success">Sign-in</Button>
+               </form>
+               <Button variant="outline-primary" onClick={toggleSignup}>Create an account</Button>
+               </>
+         }<br/>
+         <p>If you just want to explore, click below to login with a dummy account.</p>
+         <Button size="sm" variant="outline-dark" onClick={handleDummyLogin}>Have a look</Button>
+      </div>
    )
 }
 

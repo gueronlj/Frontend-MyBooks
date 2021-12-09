@@ -146,43 +146,48 @@ const MyBook = (props) => {
             : null
       }
 
-      { props.currentBook ?
-         (<>
-         <Table striped hover>
-            <thead>
-            <tr>
-               <th>Player</th>
-               <th></th>
-               <th></th>
-               <th>Juice</th>
-            </tr>
-            </thead>
-            <tbody>
-            {(props.currentBook.bets.map((bet) => {
-               return(
-                  <tr key={bet.id}>
-                     <td><a href="#" id={bet.player.id} onClick={toggleDetails}>{bet.player.name}</a></td>
-                     <td>{ bet.prop}</td>
-                     <td>${ bet.value}</td>
-                     <td>{ bet.juice}</td>
-                     <td><CloseButton id={bet.id} onClick={handleDelete}/></td>
-                     <td><img src='./pencil.svg' alt="" id={bet.id} onClick={findBet}/></td>
-                  </tr>
-               )
-            }))}
-            </tbody>
-         </Table>
-         <nav>
-         { props.addBetOn ?
-            <Button variant="outline-danger" onClick={toggleAddBet}>Cancel</Button>
+      { props.currentBook?
+         <>
+         { props.currentBook.bets.length != 0 ?
+            (<>
+            <Table striped hover>
+               <thead>
+               <tr>
+                  <th>Player</th>
+                  <th></th>
+                  <th></th>
+                  <th>Juice</th>
+               </tr>
+               </thead>
+               <tbody>
+               {(props.currentBook.bets.map((bet) => {
+                  return(
+                     <tr key={bet.id}>
+                        <td><a href="#" id={bet.player.id} onClick={toggleDetails}>{bet.player.name}</a></td>
+                        <td>{ bet.prop}</td>
+                        <td>${ bet.value}</td>
+                        <td>{ bet.juice}</td>
+                        <td><CloseButton id={bet.id} onClick={handleDelete}/></td>
+                        <td><img src='./pencil.svg' alt="" id={bet.id} onClick={findBet}/></td>
+                     </tr>
+                  )
+               }))}
+               </tbody>
+            </Table>
+            </>)
             :
-            <Button variant="success" onClick={toggleAddBet}>New Bet</Button>
+            <><h4>This book is empty.</h4> <p>Add a new bet, but make sure you have a player first.</p></>
          }
-
-         </nav>
-         </>) : null
+         </>
+         : null
       }
-
+      <nav>
+      { props.addBetOn && props.currentBook?
+         <Button variant="outline-danger" onClick={toggleAddBet}>Cancel</Button>
+         :
+         <Button variant="success" onClick={toggleAddBet}>New Bet</Button>
+      }
+      </nav>
       {props.openDetails ?
          <PlayerDetails
             setOpenDetails={props.setOpenDetails}

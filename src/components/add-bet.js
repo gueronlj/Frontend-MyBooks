@@ -25,6 +25,7 @@ const AddBet = (props) => {
                console.log(response.data);
                localStorage.setItem('currentBook', JSON.stringify(response.data))
                props.setCurrentBook(response.data)
+               props.setAddBetOn(false)
             }
          })
    }
