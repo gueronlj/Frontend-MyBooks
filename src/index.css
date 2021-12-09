@@ -18,6 +18,8 @@ main {
    width: 94vw;
    margin-left: 3%;
    margin-right: 3%;
+   align-items: center;
+
 }
 
 header {
@@ -127,6 +129,11 @@ img{
    flex-direction:column;
    text-align: center;
    align-items: stretch;
+   max-width: 400px;
+}
+
+#login{
+   margin-top: 3em;
 }
 
 #login form>*{
