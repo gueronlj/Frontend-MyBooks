@@ -18,7 +18,6 @@ main {
    width: 94vw;
    margin-left: 3%;
    margin-right: 3%;
-   align-items: center;
 
 }
 
@@ -124,7 +123,7 @@ img{
    margin-right: 1em;
 }
 
-#login, #login>*{
+.login, .login>*{
    display: flex;
    flex-direction:column;
    text-align: center;
@@ -132,11 +131,12 @@ img{
 
 }
 
-#login{
+.login{
    margin-top: 3em;
+   align-self: center;
 }
 
-#login form>*{
+.login form>*{
    margin-bottom: 1em;
    text-align: center;
    user-select: none;

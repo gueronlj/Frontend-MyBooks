@@ -61,7 +61,7 @@ const Login = (props) => {
       <>
          {
             signUp ?
-            <>
+            <div className="login">
             <h3>Create an account</h3>
             <Form onSubmit={handleCreate}>
                <Form.Control type='text' name="username" placeholder="Username" onChange={handleInput}/>
@@ -69,9 +69,9 @@ const Login = (props) => {
                <Button type="submit" variant="success">Confirm</Button>
             </Form>
             <Button variant="secondary" onClick={toggleSignup}>Back</Button>
-            </>
+            </div>
             :
-               <div id="login">
+               <div className="login">
                <h3>Log in</h3>
                <Form  onSubmit={handleSubmit}>
                   <input type='text' name="username" placeholder="Username" onChange={handleInput}/>
