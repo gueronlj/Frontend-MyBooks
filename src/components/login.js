@@ -58,7 +58,7 @@ const Login = (props) => {
    }
 
    return (
-      <div id="login">
+      <>
          {
             signUp ?
             <>
@@ -71,7 +71,7 @@ const Login = (props) => {
             <Button variant="secondary" onClick={toggleSignup}>Back</Button>
             </>
             :
-               <>
+               <div id="login">
                <h3>Log in</h3>
                <Form  onSubmit={handleSubmit}>
                   <input type='text' name="username" placeholder="Username" onChange={handleInput}/>
@@ -79,11 +79,11 @@ const Login = (props) => {
                   <Button type="submit" variant="primary">Sign-in</Button>
                </Form>
                <Button variant="outline-warning" onClick={toggleSignup}>Create an account</Button>
-               </>
+               </div>
          }<br/>
          <p>If you just want to explore, click below to login with a dummy account.</p>
          <Button size="sm" variant="outline-dark" onClick={handleDummyLogin}>Have a look</Button>
-      </div>
+      </>
    )
 }
 

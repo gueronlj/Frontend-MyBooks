@@ -129,7 +129,7 @@ img{
    flex-direction:column;
    text-align: center;
    align-items: stretch;
-   max-width: 400px;
+
 }
 
 #login{
@@ -140,6 +140,7 @@ img{
    margin-bottom: 1em;
    text-align: center;
    user-select: none;
+   max-width: 400px;
 }
 
 #addBook{
