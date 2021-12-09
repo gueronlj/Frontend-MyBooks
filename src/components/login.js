@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
 const Login = (props) => {
-   const localURL= "http://protected-eyrie-39175.herokuapp.com/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [login, setLogin] = useState({})
    const [signUp, setSignUp] = useState(false)
