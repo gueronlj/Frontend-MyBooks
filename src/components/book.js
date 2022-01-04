@@ -10,7 +10,7 @@ import CloseButton from 'react-bootstrap/CloseButton'
 
 
 const MyBook = (props) => {
-   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
+   const localURL= "http://localhost:3001/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [openDetails, setOpenDetails] = useState(false)
 

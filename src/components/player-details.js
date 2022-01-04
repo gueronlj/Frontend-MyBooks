@@ -5,9 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from 'react-bootstrap/Button'
 
 const PlayerDetails = (props) => {
-   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
+   const localURL= "http://localhost:3001/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
-   
+
    const closeModal = () => {
       props.setOpenDetails(false)
    }

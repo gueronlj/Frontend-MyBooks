@@ -10,7 +10,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 const Players = (props) => {
 
-   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
+   const localURL= "http://localhost:3001/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [addingPlayer, setAddingPlayer] = useState(false)
 

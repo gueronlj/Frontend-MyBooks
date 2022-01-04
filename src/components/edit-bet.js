@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
 const EditBet = (props) => {
-   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
+   const localURL= "http://localhost:3001/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
    const [bet, setBet] = useState(emptyBet)
