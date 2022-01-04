@@ -72,7 +72,7 @@ const App = () => {
          }
 
          {
-            books.length == 0 ?
+            books.length === 0 ?
                <div className='info'>
                   <h3>Welcome!</h3>
                   <p>It looks like you are new. To start get started,</p>

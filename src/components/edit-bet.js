@@ -8,16 +8,15 @@ import Form from 'react-bootstrap/Form'
 const EditBet = (props) => {
    const localURL= "http://localhost:3001/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
-   const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
-   const [bet, setBet] = useState(emptyBet)
+   const [bet, setBet] = useState(props.targetBet)
 
    const closeModal = () => {
       props.setEditMode(false)
    }
 
    const handleInput = (event) => {
-      props.setTargetBet({...props.targetBet, [event.target.name]:event.target.value})
       setBet({...bet, [event.target.name]:event.target.value})
+      props.setTargetBet({...props.targetBet, [event.target.name]:event.target.value})
    }
 
    const refreshPlayers = () => {
@@ -43,6 +42,7 @@ const EditBet = (props) => {
             console.log(error);
          } else {
             console.log(response.data);
+            closeModal()
          }
          axios
             .get(localURL+"mybook/"+props.currentBook.id)

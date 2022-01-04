@@ -148,7 +148,7 @@ const MyBook = (props) => {
 
       { props.currentBook?
          <>
-         { props.currentBook.bets.length != 0 ?
+         { props.currentBook.bets.length !== 0 ?
             (<>
             <Table striped hover>
                <thead>
