@@ -18,7 +18,7 @@ const MyBook = (props) => {
 
    const handleBookBtn = (event) => {
       axios
-         .get(localURL+"mybook/"+event.target.id)
+         .get(herokuURL+"mybook/"+event.target.id)
          .then((response, error) => {
             if (error){
                console.log(error);
@@ -32,7 +32,7 @@ const MyBook = (props) => {
 
    const getPlayer = (id) => {
       axios
-         .get(localURL+"player-details/"+id)
+         .get(herokuURL+"player-details/"+id)
          .then((response, error) => {
             error ?
                console.log(error)
@@ -44,7 +44,7 @@ const MyBook = (props) => {
 
    const refreshBooks = () => {
       axios
-         .get(localURL+"books/"+props.currentUser.id)
+         .get(herokuURL+"books/"+props.currentUser.id)
          .then((response, error) => {
             if(error){
                console.log(error);
@@ -57,13 +57,13 @@ const MyBook = (props) => {
 
    const handleDelete = (event) => {
       axios
-         .delete(localURL+"bets/"+event.target.id)
+         .delete(herokuURL+"bets/"+event.target.id)
          .then((response, error) => {
             if (error){
                console.log(error);
             } else {
                axios
-                  .get(localURL+"mybook/"+props.currentBook.id)
+                  .get(herokuURL+"mybook/"+props.currentBook.id)
                   .then((response, error) => {
                      if (error){
                         console.log(error);
@@ -79,7 +79,7 @@ const MyBook = (props) => {
 
    const findBet = (event) => {
       axios
-         .get(localURL+"bets/"+event.target.id)
+         .get(herokuURL+"bets/"+event.target.id)
          .then((response, error) => {
             if(error){
                console.log(error);
@@ -112,7 +112,7 @@ const MyBook = (props) => {
 
    const deleteBook = () => {
       axios
-         .delete(localURL+"books/"+props.currentBook.id)
+         .delete(herokuURL+"books/"+props.currentBook.id)
          .then((response, error) => {
             error?
                console.log(error) : console.log(response.data);

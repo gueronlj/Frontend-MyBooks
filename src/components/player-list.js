@@ -20,7 +20,7 @@ const Players = (props) => {
 
    const handlePlayerSubmit = (event) => {
       event.preventDefault()
-      axios.post(localURL+"players", props.player)
+      axios.post(herokuURL+"players", props.player)
       .then((response, error) => {
          if(error){
             console.log(error);
@@ -33,7 +33,7 @@ const Players = (props) => {
 
    const updateList = () => {
       axios
-         .get(localURL+"players/"+props.currentUser.id)
+         .get(herokuURL+"players/"+props.currentUser.id)
          .then((response, error) => {
             if(error){
                console.log(error);
@@ -46,7 +46,7 @@ const Players = (props) => {
 
    const handleDelete = (event) => {
       axios
-         .delete(localURL+"players/"+event.target.id)
+         .delete(herokuURL+"players/"+event.target.id)
          .then((response, error) => {
             if (error){
                console.log(error);

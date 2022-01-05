@@ -27,7 +27,7 @@ const Login = (props) => {
    const handleDummyLogin = (event) => {
       event.preventDefault()
       axios
-         .post(localURL+'session', {user:{username:'lorens',password:'123456'}})
+         .post(herokuURL+'session', {user:{username:'lorens',password:'123456'}})
          .then((response) => {
             onLogin(response)
          })
@@ -36,7 +36,7 @@ const Login = (props) => {
    const handleSubmit = (event) => {
       event.preventDefault()
       axios
-         .post(localURL+'session', {user:login})
+         .post(herokuURL+'session', {user:login})
          .then((response) => {
             onLogin(response)
          })
@@ -45,7 +45,7 @@ const Login = (props) => {
    const handleCreate = (event) => {
       event.preventDefault()
       axios
-         .post(localURL+"users",{user:login})
+         .post(herokuURL+"users",{user:login})
          .then((response, error) => {
             error ?
                console.log(error) : onLogin(response)

@@ -17,7 +17,7 @@ const AddBet = (props) => {
    const handleBetSubmit = (event) => {
       event.preventDefault()
       axios
-         .post(localURL+"bets", {bet})
+         .post(herokuURL+"bets", {bet})
          .then((response, error) => {
             if (error) {
                console.log(error);
@@ -32,7 +32,7 @@ const AddBet = (props) => {
 
    const updatePlayerList = () => {
       axios
-         .get(localURL+"players/"+props.currentUser.id)
+         .get(herokuURL+"players/"+props.currentUser.id)
          .then((response, error) => {
             if(error){
                console.log(error);

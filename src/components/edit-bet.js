@@ -21,7 +21,7 @@ const EditBet = (props) => {
 
    const refreshPlayers = () => {
       axios
-         .get(localURL+"players/"+props.currentUser.id)
+         .get(herokuURL+"players/"+props.currentUser.id)
          .then((response, error) => {
             if(error){
                console.log(error);
@@ -36,7 +36,7 @@ const EditBet = (props) => {
       event.preventDefault()
       setBet(props.targetBet)
       axios
-      .patch(localURL+"bets/"+props.targetBet.id, {bet})
+      .patch(herokuURL+"bets/"+props.targetBet.id, {bet})
       .then((response, error) => {
          if (error){
             console.log(error);
@@ -45,7 +45,7 @@ const EditBet = (props) => {
             closeModal()
          }
          axios
-            .get(localURL+"mybook/"+props.currentBook.id)
+            .get(herokuURL+"mybook/"+props.currentBook.id)
             .then((response, error) => {
                if(error){
                   console.log(error);

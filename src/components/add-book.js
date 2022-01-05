@@ -17,7 +17,7 @@ const AddBook = (props) => {
    const handleSubmit = (event) => {
       event.preventDefault()
       axios
-         .post(localURL+"books", {book:newBook})
+         .post(herokuURL+"books", {book:newBook})
          .then((response, error) => {
             if (error){
                console.log(error);
@@ -32,7 +32,7 @@ const AddBook = (props) => {
 
    const updateList = () => {
       axios
-         .get(localURL+"books/"+props.currentUser.id)
+         .get(herokuURL+"books/"+props.currentUser.id)
          .then((response, error) => {
             if(error){
                console.log(error);
