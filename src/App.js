@@ -12,8 +12,7 @@ const App = () => {
 
    const [currentUser, setCurrentUser ] = useState(null)
    const [books, setBooks] = useState([])
-   const emptyBook = {bets:[]}
-   const [currentBook, setCurrentBook] = useState(emptyBook)
+   const [currentBook, setCurrentBook] = useState(null)
    const [playerList, setPlayerList] = useState([])
    const [targetBet, setTargetBet] = useState({id:1})
    const emptyPlayer = {name:'', contact:'', balance:0}
@@ -45,9 +44,8 @@ const App = () => {
 
    return(
       <main>
-      { currentUser ?
-         <>
          <header>
+         { currentUser ?
             <Nav
                currentUser={currentUser}
                setBooks={setBooks}
@@ -57,7 +55,8 @@ const App = () => {
                checkSession={checkSession}
                setPlayersOn={setPlayersOn}
                playersOn={playersOn}/>
-
+            : null
+         }
          </header>
          <section>
          {playersOn ?
@@ -70,68 +69,55 @@ const App = () => {
                setOpenDetails={setOpenDetails}/>)
             : null
          }
-
-         {
-            books.length === 0 ?
-               <div className='info'>
-                  <h3>Welcome!</h3>
-                  <p>It looks like you are new. To start get started,</p>
-                  <p>1. Create a book</p>
-                  <p>2. Add some players</p>
-                  <p>3. Start adding new bets</p>
-               </div>
-               : null
-         }
-
-         <MyBook
-            books={books}
-            setBooks={setBooks}
-            currentBook={currentBook}
-            currentUser={currentUser}
-            setCurrentBook={setCurrentBook}
-            setTargetBet={setTargetBet}
-            addBetOn={addBetOn}
-            setAddBetOn={setAddBetOn}
-            setEditMode={setEditMode}
-            addBook={addBook}
-            setAddBook={setAddBook}
-            openDetails={openDetails}
-            setOpenDetails={setOpenDetails}/>
-
-         {addBetOn ?
-            <AddBet
-               currentUser={currentUser}
+         { currentUser ?
+            <>
+            <MyBook
+               books={books}
+               setBooks={setBooks}
                currentBook={currentBook}
-               setCurrentBook={setCurrentBook}
-               playerList={playerList}
-               setPlayerList={setPlayerList}
-               addBetOn={addBetOn}
-               setAddBetOn={setAddBetOn}/>
-               : null
-         }
-         {editMode ?
-            <EditBet
                currentUser={currentUser}
-               player={player}
-               currentBook={currentBook}
                setCurrentBook={setCurrentBook}
-               targetBet={targetBet}
                setTargetBet={setTargetBet}
+               addBetOn={addBetOn}
+               setAddBetOn={setAddBetOn}
                setEditMode={setEditMode}
-               editMode={editMode}
-               setPlayerList={setPlayerList}
-               playerList={playerList}/>
+               addBook={addBook}
+               setAddBook={setAddBook}
+               openDetails={openDetails}
+               setOpenDetails={setOpenDetails}/>
 
-               : null
-         }
-         </section>
-         </>
-            : <Login
-                  setCurrentUser={setCurrentUser}
-                  setBooks={setBooks}
+            {addBetOn ?
+               <AddBet
+                  currentUser={currentUser}
+                  currentBook={currentBook}
+                  setCurrentBook={setCurrentBook}
+                  playerList={playerList}
+                  setPlayerList={setPlayerList}/>
+                  : null
+            }
+            {editMode ?
+               <EditBet
+                  currentUser={currentUser}
+                  player={player}
+                  currentBook={currentBook}
+                  setCurrentBook={setCurrentBook}
+                  targetBet={targetBet}
+                  setTargetBet={setTargetBet}
+                  setEditMode={setEditMode}
+                  editMode={editMode}
                   setPlayerList={setPlayerList}
-                  setCurrentBook={setCurrentBook}/>
-      }
+                  playerList={playerList}/>
+
+                  : null
+            }
+
+            </>
+                  : <Login
+                     setCurrentUser={setCurrentUser}
+                     setBooks={setBooks}
+                     setPlayerList={setPlayerList}/>
+            }
+         </section>
       </main>
    )
 }

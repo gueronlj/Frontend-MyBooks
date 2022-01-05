@@ -1,12 +1,9 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 
 const AddBook = (props) => {
-   const localURL= "http://localhost:3001/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [newBook, setNewBook] = useState({})
 
@@ -49,10 +46,11 @@ const AddBook = (props) => {
 
    return(
       <>
-         <Form id="addBook" onClick={handleSubmit}>
-            <Form.Control type="text" name="name" placeholder="Name your book" onChange={handleInput}/>
-            <Button size="sm" type="submit">Submit</Button>
-         </Form>
+         <form onClick={handleSubmit}>
+            <label for="name">Add a book </label>
+            <input type="text" name="name" placeholder="Name for book" onChange={handleInput}/>
+            <input type="submit"/>
+         </form>
       </>
    )
 }

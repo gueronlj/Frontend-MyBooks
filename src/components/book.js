@@ -3,14 +3,10 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import PlayerDetails from './player-details.js'
 import AddBook from './add-book.js'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from 'react-bootstrap/Button'
-import Table from 'react-bootstrap/Table'
-import CloseButton from 'react-bootstrap/CloseButton'
 
 
 const MyBook = (props) => {
-   const localURL= "http://localhost:3001/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [openDetails, setOpenDetails] = useState(false)
 
@@ -128,7 +124,7 @@ const MyBook = (props) => {
       <nav id="bookNav">
          {props.books.map((book) => {
             return(
-               <Button variant="info" size="sm" onClick={handleBookBtn} key={book.id} id={book.id}>{book.name}</Button>
+               <button onClick={handleBookBtn} key={book.id} id={book.id}>{book.name}</button>
             )
          })}
          { props.addBook ?
@@ -146,48 +142,34 @@ const MyBook = (props) => {
             : null
       }
 
-      { props.currentBook?
-         <>
-         { props.currentBook.bets.length !== 0 ?
-            (<>
-            <Table striped hover>
-               <thead>
-               <tr>
-                  <th>Player</th>
-                  <th></th>
-                  <th></th>
-                  <th>Juice</th>
-               </tr>
-               </thead>
-               <tbody>
-               {(props.currentBook.bets.map((bet) => {
-                  return(
-                     <tr key={bet.id}>
-                        <td><a href="#" id={bet.player.id} onClick={toggleDetails}>{bet.player.name}</a></td>
-                        <td>{ bet.prop}</td>
-                        <td>${ bet.value}</td>
-                        <td>{ bet.juice}</td>
-                        <td><CloseButton id={bet.id} onClick={handleDelete}/></td>
-                        <td><img src='./pencil.svg' alt="" id={bet.id} onClick={findBet}/></td>
-                     </tr>
-                  )
-               }))}
-               </tbody>
-            </Table>
-            </>)
-            :
-            <><h4>This book is empty.</h4> <p>Add a new bet, but make sure you have a player first.</p></>
-         }
-         </>
-         : null
+      { props.currentBook ?
+         (<>
+         <table>
+            <tr>
+               <th>Player</th>
+               <th></th>
+               <th></th>
+               <th>Juice</th>
+            </tr>
+            {(props.currentBook.bets.map((bet) => {
+               return(
+                  <tr key={bet.id}>
+                     <td><a href="#" id={bet.player.id} onClick={toggleDetails}>{bet.player.name}</a></td>
+                     <td>{ bet.prop}</td>
+                     <td>${ bet.value}</td>
+                     <td>{ bet.juice}</td>
+                     <td><img src="./delete.svg" id={bet.id} onClick={handleDelete}/></td>
+                     <td><img src='./pencil.svg' alt="" id={bet.id} onClick={findBet}/></td>
+                  </tr>
+               )
+            }))}
+         </table>
+         <nav>
+         <button  onClick={toggleAddBet}>New Bet</button>
+         </nav>
+         </>) : null
       }
-      <nav>
-      { props.addBetOn && props.currentBook?
-         <Button variant="outline-danger" onClick={toggleAddBet}>Cancel</Button>
-         :
-         <Button variant="success" onClick={toggleAddBet}>New Bet</Button>
-      }
-      </nav>
+
       {props.openDetails ?
          <PlayerDetails
             setOpenDetails={props.setOpenDetails}

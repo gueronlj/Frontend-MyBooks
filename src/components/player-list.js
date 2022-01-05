@@ -1,16 +1,10 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from 'react-bootstrap/Button'
-import Table from 'react-bootstrap/Table'
-import CloseButton from 'react-bootstrap/CloseButton'
-import Form from 'react-bootstrap/Form'
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 const Players = (props) => {
 
-   const localURL= "http://localhost:3001/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const [addingPlayer, setAddingPlayer] = useState(false)
 
@@ -75,26 +69,25 @@ const Players = (props) => {
       <div id="playerHead">
 
          { addingPlayer ?
-            <><Button variant="outline-danger" size="sm" onClick={toggleAddPLayer}>Close</Button><img src="cross.svg" onClick={toggleAddPLayer}/></>
+            <><p>Close</p><img src="cross.svg" onClick={toggleAddPLayer}/></>
             :
-            <><p onClick={toggleAddPLayer}>Add player</p><img src="user-add.svg" onClick={toggleAddPLayer}/></>
+            <><p>Add player</p><img src="user-add.svg" onClick={toggleAddPLayer}/></>
          }
 
       </div>
       { addingPlayer ?
          <>
-         <Form onSubmit={handlePlayerSubmit}>
-            <Form.Control type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
-            <Form.Control type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
-            <Form.Control type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
-            <Button size='sm' type='submit'>Submit</Button>
-         </Form>
+         <form onSubmit={handlePlayerSubmit}>
+            <input type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
+            <input type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
+            <input type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
+            <input type='submit'/>
+         </form>
 
          </>
             : null
       }
-      <Table striped hover className="playerTable">
-         <thead>
+      <table className="playerTable">
          <tr>
             <th>ID</th>
             <th>Alias</th>
@@ -102,8 +95,6 @@ const Players = (props) => {
             <th>Total Wins</th>
             <th>Balance</th>
          </tr>
-         </thead>
-         <tbody>
          { props.playerList ?
             (props.playerList.map((player) => {
                return(
@@ -113,13 +104,12 @@ const Players = (props) => {
                      <td id="contacts" onClick={toggleDetails}>{ player.contact}</td>
                      <td onClick={toggleDetails}>{ player.wins}</td>
                      <td onClick={toggleDetails}>${ player.balance}</td>
-                     <td><CloseButton id={player.id} onClick={handleDelete}/></td>
+                     <td><img src='user-delete.svg' id={player.id} onClick={handleDelete}/></td>
                   </tr>
                )
             })): null
          }
-         </tbody>
-      </Table>
+      </table>
       </>
    )
 }

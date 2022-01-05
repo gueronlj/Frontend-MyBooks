@@ -1,12 +1,9 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 
 const AddBet = (props) => {
-   const localURL= "http://localhost:3001/"
+   const localURL= "https://protected-eyrie-39175.herokuapp.com/"
    const herokuURL = "https://protected-eyrie-39175.herokuapp.com/"
    const emptyBet = { player_id:1, prop: '', value:0, juice:0 }
    const [bet, setNewBet ] = useState(emptyBet)
@@ -25,7 +22,6 @@ const AddBet = (props) => {
                console.log(response.data);
                localStorage.setItem('currentBook', JSON.stringify(response.data))
                props.setCurrentBook(response.data)
-               props.setAddBetOn(false)
             }
          })
    }
@@ -49,10 +45,9 @@ const AddBet = (props) => {
 
    return(
       <>
-      <Form onSubmit={handleBetSubmit}>
+      <form onSubmit={handleBetSubmit}>
       <label for="player_id">Player:</label>
-      <Form.Select name="player_id" id="player_id" onChange={handleInput}>
-      <option>Select a player</option>
+      <select name="player_id" id="player_id" onChange={handleInput}>
          {
             props.playerList.map((player) => {
                return(
@@ -60,20 +55,20 @@ const AddBet = (props) => {
                )
             })
          }
-      </Form.Select><br/>
+      </select><br/>
       <label for="prop">Details:</label>
-      <Form.Control type="text" name="prop" placeholder="Proposition" onChange={handleInput}/><br/>
-      <label for="value">Ammount ($):</label>
-      <Form.Control type="number" name="value" onChange={handleInput}/><br/>
+      <input type="text" name="prop" placeholder="Proposition" onChange={handleInput}/><br/>
+      <label for="value">Ammount:</label>
+      <input type="number" name="value" onChange={handleInput}/><br/>
       <label for="juice">Juice:</label>
-      <Form.Control type="number" min="0" max="1" step="0.01" name="juice" onChange={handleInput} placeholder="Example: 0.05"/>
+      <input type="number" min="0" max="1" step="0.01" name="juice" onChange={handleInput}/>
       <input type="hidden" name="book_id" value=
          { props.currentBook ?
             props.currentBook.id : 1
          }/>
       <input type="hidden" name={props.currentUser.id} value={props.currentUser.id}/>
-      <Button variant="success" type="submit">Submit</Button>
-      </Form>
+      <input type="submit"/>
+      </form>
       </>
    )
 }

@@ -18,7 +18,6 @@ main {
    width: 94vw;
    margin-left: 3%;
    margin-right: 3%;
-
 }
 
 header {
@@ -85,11 +84,6 @@ img{
    display: flex;
    flex-direction: row;
    justify-content: center;
-   user-select: none;
-}
-
-#playerHead:hover{
-   cursor: pointer;
 }
 
 #playerHead>*{
@@ -102,17 +96,14 @@ img{
    justify-content: flex-start;
    margin-bottom: .5em;
    max-width: 100;
-   user-select: none;
 }
 
 #bookNav>*{
    margin: .25em;
-   user-select: none;
 }
 
 #playersToggle{
    display: inline-flex;
-   user-select: none;
 }
 
 #playersToggle p{
@@ -121,28 +112,4 @@ img{
 
 #welcome {
    margin-right: 1em;
-}
-
-.login, .login>*{
-   display: flex;
-   flex-direction:column;
-   text-align: center;
-   align-items: stretch;
-
-}
-
-.login{
-   margin-top: 3em;
-   align-self: center;
-}
-
-.login form>*{
-   margin-bottom: 1em;
-   text-align: center;
-   user-select: none;
-}
-
-#addBook{
-   display: flex;
-   user-select: none;
 }
