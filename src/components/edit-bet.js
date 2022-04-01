@@ -36,7 +36,7 @@ const EditBet = (props) => {
       event.preventDefault()
       setBet(props.targetBet)
       axios
-      .patch(herokuURL+"bets/"+props.targetBet.id, {bet})
+      .put(herokuURL+"bets/"+props.targetBet.id, {bet})
       .then((response, error) => {
          if (error){
             console.log(error);
