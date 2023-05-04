@@ -31,12 +31,12 @@ const Nav = (props) => {
             <li id="welcome" >Welcome, {props.currentUser.username}</li>
 
             {props.playersOn ?
-               <li id='playersToggle' ><Button variant="outline-primary" onClick={togglePlayers}>close</Button><img src="cross.svg" onClick={togglePlayers}/></li>
+               <li id='playersToggle' ><Button variant="primary" onClick={togglePlayers}>Close</Button></li>
                :
                <li><Button variant="primary" onClick={togglePlayers}>Players</Button></li>
             }
-            <li><Button variant="outline-info" >Help</Button></li>
-            <li><Button variant="outline-warning" onClick={handleLogout}>Logout</Button></li>
+            <li><Button>Help</Button></li>
+            <li><Button variant="warning" onClick={handleLogout}>Logout</Button></li>
             </>)
             :
             (<>

@@ -72,25 +72,21 @@ const Players = (props) => {
 
    return(
       <>
-      <div id="playerHead">
 
-         { addingPlayer ?
-            <><Button variant="outline-danger" size="sm" onClick={toggleAddPLayer}>Close</Button><img src="cross.svg" onClick={toggleAddPLayer}/></>
-            :
-            <><p onClick={toggleAddPLayer}>Add player</p><img src="user-add.svg" onClick={toggleAddPLayer}/></>
-         }
-
-      </div>
       { addingPlayer ?
-         <>
-         <Form onSubmit={handlePlayerSubmit}>
-            <Form.Control type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
-            <Form.Control type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
-            <Form.Control type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
-            <Button size='sm' type='submit'>Submit</Button>
-         </Form>
-
-         </>
+         <div className = "modalBack">
+            <div className = "detailsModal">
+               <Form onSubmit={handlePlayerSubmit}>
+                  <Form.Control type='text' name='name' placeholder="Name" onChange={handlePlayerInput}/>
+                  <Form.Control type='text' name='contact' placeholder="Contact info" onChange={handlePlayerInput}/>
+                  <Form.Control type='text' name='balance' placeholder="Starting Balance ($)" onChange={handlePlayerInput}/>
+                  <Button size='sm' type='submit'>Submit</Button>
+                  <Button size='sm' onClick={() => {
+                     setAddingPlayer(false)
+                  }}>Cancel</Button>
+               </Form>
+            </div>
+         </div>
             : null
       }
       <Table striped hover className="playerTable">
@@ -120,6 +116,13 @@ const Players = (props) => {
          }
          </tbody>
       </Table>
+      <div id="playerHead">
+         { addingPlayer ?
+            <><Button variant="outline-danger" size="sm" onClick={toggleAddPLayer}>Close</Button><img src="cross.svg" onClick={toggleAddPLayer}/></>
+            :
+            <><p onClick={toggleAddPLayer}>Add player</p><img src="user-add.svg" onClick={toggleAddPLayer}/></>
+         }
+      </div>
       </>
    )
 }
